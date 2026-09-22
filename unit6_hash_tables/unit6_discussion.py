@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 """
 ====================================================
 UNIT 6 DISCUSSION: Python Dictionaries as Hash Tables
@@ -8,119 +11,137 @@ similarly to hash tables. It shows insert, lookup, update,
 delete, and edge-case operations.
 """
 
+public class Unit6Discussion {
 
-def main():
-    print("=== UNIT 6: DICTIONARIES AS HASH TABLES ===")
+    public static void main(String[] args) {
 
-    # ===============================
-    # CREATE A HASH TABLE
-    # ===============================
+        System.out.println("=== UNIT 6: DICTIONARIES AS HASH TABLES ===");
 
-    # A Python dictionary works like a hash table because
-    # each key is used to quickly find its associated value.
-    # The key is processed using a hash function, which helps
-    # Python locate the value efficiently.
-    student_scores = {}
+        // ===============================
+        // CREATE A HASH TABLE
+        // ===============================
 
-    # Add five key-value pairs to the dictionary.
-    student_scores["Alice"] = 92
-    student_scores["Bob"] = 85
-    student_scores["Charlie"] = 78
-    student_scores["Diana"] = 95
-    student_scores["Ethan"] = 88
+        // A Java HashMap works similarly to a hash table.
+        // Each key is used to locate its associated value.
+        Map<String, Integer> studentScores = new HashMap<>();
 
-    print("\nDictionary contents:")
-    print(student_scores)
+        // Add five key-value pairs to the HashMap.
+        studentScores.put("Alice", 92);
+        studentScores.put("Bob", 85);
+        studentScores.put("Charlie", 78);
+        studentScores.put("Diana", 95);
+        studentScores.put("Ethan", 88);
 
-    print("\n=== INSERT OPERATIONS ===")
+        System.out.println("\nHashMap contents:");
+        System.out.println(studentScores);
 
-    # Adding a new key inserts a new key-value pair into
-    # the dictionary. The key is used to identify the value.
-    student_scores["Frank"] = 90
+        // ===============================
+        // INSERT OPERATIONS
+        // ===============================
 
-    print("After inserting Frank:")
-    print(student_scores)
+        System.out.println("\n=== INSERT OPERATIONS ===");
 
-    # ===============================
-    # LOOKUP OPERATIONS
-    # ===============================
+        // Adding a new key inserts a new key-value pair.
+        studentScores.put("Frank", 90);
 
-    print("\n=== LOOKUP OPERATIONS ===")
+        System.out.println("After inserting Frank:");
+        System.out.println(studentScores);
 
-    # A dictionary can quickly retrieve a value by using
-    # its key. Python uses the key to locate the value.
-    alice_score = student_scores["Alice"]
-    charlie_score = student_scores["Charlie"]
+        // ===============================
+        // LOOKUP OPERATIONS
+        // ===============================
 
-    print("Alice's score:", alice_score)
-    print("Charlie's score:", charlie_score)
+        System.out.println("\n=== LOOKUP OPERATIONS ===");
 
-    # ===============================
-    # UPDATE OPERATIONS
-    # ===============================
+        // get() retrieves the value associated with a key.
+        Integer aliceScore = studentScores.get("Alice");
+        Integer charlieScore = studentScores.get("Charlie");
 
-    print("\n=== UPDATE OPERATIONS ===")
+        System.out.println("Alice's score: " + aliceScore);
+        System.out.println("Charlie's score: " + charlieScore);
 
-    print("Dictionary before update:")
-    print(student_scores)
+        // ===============================
+        // UPDATE OPERATIONS
+        // ===============================
 
-    # Assigning a new value to an existing key updates
-    # the value instead of creating another copy of the key.
-    student_scores["Bob"] = 91
+        System.out.println("\n=== UPDATE OPERATIONS ===");
 
-    print("\nDictionary after updating Bob's score:")
-    print(student_scores)
+        System.out.println("HashMap before update:");
+        System.out.println(studentScores);
 
-    # ===============================
-    # DELETE OPERATIONS
-    # ===============================
+        // Putting a new value with an existing key updates
+        // the value associated with that key.
+        studentScores.put("Bob", 91);
 
-    print("\n=== DELETE OPERATIONS ===")
+        System.out.println("\nHashMap after updating Bob's score:");
+        System.out.println(studentScores);
 
-    print("Dictionary before deletion:")
-    print(student_scores)
+        // ===============================
+        // DELETE OPERATIONS
+        // ===============================
 
-    # The del statement removes the specified key and
-    # its associated value from the dictionary.
-    del student_scores["Ethan"]
+        System.out.println("\n=== DELETE OPERATIONS ===");
 
-    print("\nDictionary after deleting Ethan:")
-    print(student_scores)
+        System.out.println("HashMap before deletion:");
+        System.out.println(studentScores);
 
-    # ===============================
-    # EDGE CASES
-    # ===============================
+        // remove() deletes the specified key and its value.
+        studentScores.remove("Ethan");
 
-    print("\n=== EDGE CASES ===")
+        System.out.println("\nHashMap after deleting Ethan:");
+        System.out.println(studentScores);
 
-    # Edge Case 1: Looking up a key that does not exist.
-    # Using get() safely returns None instead of causing
-    # a KeyError when the key is missing.
-    missing_score = student_scores.get("George")
+        // ===============================
+        // EDGE CASES
+        // ===============================
 
-    print("Looking up George:")
-    print("Result:", missing_score)
+        System.out.println("\n=== EDGE CASES ===");
 
-    # Edge Case 2: Safely deleting a key that may not exist.
-    # pop() with a default value prevents a KeyError.
-    removed_value = student_scores.pop("George", None)
+        // Edge Case 1: Looking up a key that does not exist.
+        // get() returns null instead of causing an exception.
+        Integer missingScore = studentScores.get("George");
 
-    print("\nAttempting to delete George:")
-    if removed_value is None:
-        print("George was not found, so nothing was deleted.")
-    else:
-        print("George was deleted.")
+        System.out.println("Looking up George:");
+        System.out.println("Result: " + missingScore);
 
-    # Edge Case 3: Updating a key that does not exist.
-    # Assigning a value to a new key creates a new
-    # key-value pair instead of causing an error.
-    student_scores["George"] = 82
+        // Edge Case 2: Safely checking whether a key exists
+        // before attempting to remove it.
+        System.out.println("\nAttempting to delete George:");
 
-    print("\nAfter adding George as a new key:")
-    print(student_scores)
+        if (studentScores.containsKey("George")) {
+            studentScores.remove("George");
+            System.out.println("George was deleted.");
+        } else {
+            System.out.println(
+                    "George was not found, so nothing was deleted."
+            );
+        }
 
-    print("\n=== PROGRAM COMPLETE ===")
+        // Edge Case 3: Adding a key that does not exist.
+        // This creates a new key-value pair.
+        studentScores.put("George", 82);
 
+        System.out.println("\nAfter adding George as a new key:");
+        System.out.println(studentScores);
 
-if __name__ == "__main__":
-    main()
+        // ===============================
+        // CHECKING FOR A KEY
+        // ===============================
+
+        System.out.println("\n=== KEY SEARCH ===");
+
+        if (studentScores.containsKey("Alice")) {
+            System.out.println("Alice exists in the HashMap.");
+        }
+
+        if (!studentScores.containsKey("Henry")) {
+            System.out.println("Henry does not exist in the HashMap.");
+        }
+
+        // ===============================
+        // PROGRAM COMPLETE
+        // ===============================
+
+        System.out.println("\n=== PROGRAM COMPLETE ===");
+    }
+}
